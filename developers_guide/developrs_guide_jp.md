@@ -1,192 +1,190 @@
-# 開発者向けガイド(JP)
-## はじめに
-これは Meishi Keyboard を開発する方向けのガイドです。
-チュートリアル形式で `mkbd/pcb` のような "名刺型" のキーボードを作る過程を説明します。
+# 开发人员指南(CN)
+## 引言
+这是为开发Meishi Keyboard的用户提供的指南。
+我们将以教程格式说明创建“名片”键盘（例如“ mkbd / pcb”）的过程。
 
 ## PCB 設計
-### 新規プロジェクトの開始
+### 开始一个新项目
 
-KiCad を起動し、「ファイル > 新規 > プロジェクト」から新規プロジェクトの作成します。
+启动KiCad并从“文件”>“新建”>“工程”中创建一个新项目。
 
 ![new_project](./images/new_project/new_project.png)
 
-プロジェクト名を決めて [Save] します。 
+确定项目名称，然后单击[保存]。 
 
 ![save_new_project](./images/new_project/save_new_project.png)
 
-KiCad プロジェクトのメインメニュー画面が表示されます。
-各種ツールはこの画面から起動するので時間があればどのようなものがあるか確認しておきましょう。
-今は時間がないので先に進みます。
+界面如下
 
 ![global_menu](./images/new_project/global_menu.png)
 
-### 回路設計
+### 电路设计
 
-まずはキーボードの回路を設計していきます。
-グローバルメニューから、「回路図レイアウト エディター」を開きます。
+首先，设计键盘电路。
+从全局菜单中，打开原理图布局编辑器。
 
 ![open_eeschema](./images/eeschema/open_eeschema.png)
 
 
-これが回路図レイアウトエディター(以降 Eeschema)の作業画面です。
+这是“原理图布局编辑器”（以下称为Eeschema）的工作屏幕。
 
 ![start_eeschema](./images/eeschema/start_eeschema.png)
 
-今は設計に必要な最低限な説明しかしないのでもし体系的に学びたい場合は「ヘルプ > KiCad ことはじめ」を開いて見てください。
-KiCad の使い方を細かく学ぶことができるのでおすすめです。
+现在，如果您想系统地学习，则应打开“帮助”>“ KiCad入门”，看看是否只有设计所需的最少说明。
+推荐这样做是因为您可以详细了解如何使用KiCad。
 
 ![kotohajime](./images/eeschema/kotohajime.png)
 
-設計を始める前に、まずはキーボードに必要なパーツ(ライブラリ)を手に入れます。
-以下のように必要なライブラリを GitHub 上から取得します。
+在开始设计之前，请先获取键盘所需的零件（库）。
+从GitHub获取所需的库，如下所示。
 
 ```
 $ git clone https://github.com/foostan/kbd
 ```
 
-もしくは https://github.com/foostan/kbd にアクセスしてダウンロードしてください。
+或访问https://github.com/foostan/kbd进行下载。
 
-次に取得したライブラリを「設定 > シンボル ライブラリーを管理...」 から読み込みます。
+接下来，从“设置>管理符号库...”中加载获得的库。
 
 ![manage_lib](./images/eeschema/manage_lib.png)
 
-[ライブラリーを参照...] から `kbd/library/kbd.lib` を [Open] します。
+从[浏览库...]打开 `kbd/library/kbd.lib`
 
 ![open_lib](./images/eeschema/open_lib.png)
 
-これで回路を設計する準備が整いました。
-Eeschema の作業画面でショートカット `a` を押してシンボルの選択ウインドウを開きます。
-検索フォームに「promicro_r」と入力して、「ProMicro_r」を選択し [OK] します。
+现在您可以设计电路了。
+在Eeschema工作屏幕中按快捷方式“ a”以打开符号选择窗口。
+在搜索表单中输入“ promicro_r”，选择“ ProMicro_r”，然后单击“确定”。
 
 ![add_promicro_r](./images/eeschema/add_promicro_r.png)
 
-適当な配置します。
+适当安排。
 
 ![set_promicro_r](./images/eeschema/set_promicro_r.png)
 
-もし手元に実物の「ProMicro」があれば見比べてみましょう。
-部品が実装されていない面の向きになっていることが確認できると思います。
-回路設計においては実物と形や向きを揃える必要はありませんが、初学者にとっては実物が想像できたほうが理解が捗るので、
-もし外部のライブラリーを使う場合は見てわかりやすいものを選ぶのがいいかもしれしれません。
+如果您手边有一个真正的“ Pro Micro”，让我们对其进行比较。
+您会看到零件未安装在表面上。
+在电路设计中，没有必要将形状和方向与真实物体相匹配，但是对于初学者而言，如果可以想象真实物体，则更容易理解，
+如果使用外部库，则最好选择一个易于查看的库。
 
 ![promicro](./images/eeschema/promicro.png)
 
-次にキースイッチを配置していきます。
-今回は6つのキーが付いたキーボードを設計してみます。
+接下来，我们将安排键轴。
+这次我们将设计具有6个按键的键盘。
 
-Eeschema の作業画面でショートカット `a` を押してシンボルの選択ウインドウを開きます。
+在Eeschema工作屏幕中按快捷方式“ a”以打开符号选择窗口。
 
-検索フォームに「sw_push」と入力して、「SW_PUSH」を選択し [OK] します。
+在搜索表单中输入“ sw_push”，选择“ SW_PUSH”，然后单击[确定]。
 
 ![add_sw_push](./images/eeschema/add_sw_push.png)
 
-わかりやすいように整列させて並べます。
-シンボルを移動させる場合は、シンボルにカーソルを合わせてショートカット `m` を押して移動させたい場所に動かします。 
+安排它们，使它们易于理解。
+要移动符号，请将光标放在符号上，然后按快捷方式“ m”将其移动到所需位置。
 
 ![set_sw_push](./images/eeschema/set_sw_push.png)
 
-次にキースイッチをProMicroにつなげていきます。
-ショートカット `w` を押して下記画像を参考にしながらつなげましょう。
-もしもっとスッキリと配線させたい場合は「ラベル」を使ったやり方もあるので「KiCad ことはじめ」等でやり方を探ってみてください。
+接下来，将键轴连接到ProMicro。
+按下快捷方式“ w”，并参考下图进行连接。
+如果要使接线更整洁，还有一种使用“标签”的方法，因此请搜索“KiCad入门”等方法。
 
 ![wiring_sw_push](./images/eeschema/wiring_sw_push.png)
 
-次にキースイッチのもう片方の足を GND に落とします。
-Eeschema の作業画面でショートカット `a` を押してシンボルの選択ウインドウを開きます。
-検索フォームに「gnd」と入力して、「GND」を選択し [OK] します。
+然后将键轴的另一脚放到GND。
+在Eeschema工作屏幕中按快捷方式“ a”以打开符号选择窗口。
+在搜索表单中输入“ gnd”，选择“ GND”，然后单击“确定”。
 
 ![add_gnd](./images/eeschema/add_gnd.png)
 
-下記画像を参考に GND を付けていきます。
-見栄えが気になった方は、ショートカット `g` や ショートカット `r` などで調整してみてください(各ショートカットの挙動は実際に確認してみてください)。
+参考下图添加GND。
+如果您对外观感兴趣，请尝试调整快捷方式“ g”或快捷方式“ r”等。（请检查每个快捷方式的行为）。
 
 ![set_gnd](./images/eeschema/set_gnd.png)
 
-次にリセットスイッチを付けていきます。
-Eeschema の作業画面でショートカット `a` を押してシンボルの選択ウインドウを開きます。
-検索フォームに「sw_push」と入力して、「SW_Push」を選択し [OK] します。
-キースイッチと同じものでも問題ありませんが、見た目が違うものの方がわかりやすいのであえて変えました。
+接下来，我将安装一个rst开关。
+在Eeschema工作屏幕中按快捷方式“ a”以打开符号选择窗口。
+在搜索表单中输入“ sw_push”，选择“ SW_Push”，然后单击[确定]。
+它与键开关相同是没有问题的，但是我对其进行了更改，因为如果看起来不同，则更容易理解。
 
 ![add_sw_push_reset](./images/eeschema/add_sw_push_reset.png)
 
-キースイッチと同じ方法で配線および GND を付けます。
+接线和GND的安装方法与键轴相同。
 
 ![set_sw_push_reset](./images/eeschema/set_sw_push_reset.png)
 
-ProMicro_r に VCC および GND を付けます。
-Eeschema の作業画面でショートカット `a` を押してシンボルの選択ウインドウを開きます。
-検索フォームに「vcc」と入力して、「VCC」を選択し [OK] します。
+将VCC和GND连接到ProMicro_r。
+在Eeschema工作屏幕中按快捷方式“ a”以打开符号选择窗口。
+在搜索表单中输入“ vcc”，选择“ VCC”，然后单击“确定”。
 
 ![set_vcc_and_gnd](./images/eeschema/set_vcc_and_gnd.png)
 
-必要なパーツをすべて配線したので、ProMicro_r の使わないポートに「未接続フラグ」を付けていきます。
+现在，我们已经连接了所有必需的部件，我们将在ProMicro_r上未使用的端口上添加“未连接的标志”。
 
 
 ![set_quit_flag](./images/eeschema/set_quit_flag.png)
 
 
-最後に VCC と GND に PWR_FLAG を接続します。
-Eeschema の作業画面でショートカット `a` を押してシンボルの選択ウインドウを開きます。
-検索フォームに「pwr_flag」と入力して、「PWR_FLAG」を選択し [OK] します。
+最后，将PWR_FLAG连接到VCC和GND。
+在Eeschema工作屏幕中按快捷方式“ a”以打开符号选择窗口。
+在搜索表单中输入“ pwr_flag”，选择“ PWR_FLAG”，然后单击“确定”。
 
 ![set_pwr_flag](./images/eeschema/set_pwr_flag.png)
 
-次に、設置したシンボルに番号を付けていきます。
-上記メニューから「回路図シンボルをアノテーション」を選択し
+接下来，编号已安装的符号。
+从上面的菜单中选择“注释原理图符号”
 
 ![annotation](./images/eeschema/annotation.png)
 
-設定はそのままで [アノテーション] します。
+[Annotation]保留原样。
 
 ![set_annotation](./images/eeschema/set_annotation.png)
 
-次に、設計した回路に不備がないかチェックします。
-上記メニューから「エレクトリカル ルールのチェックを実行」を選択し
+接下来，检查设计的电路是否有缺陷。
+从上面的菜单中选择“检查电气规则”
 
 ![erc](./images/eeschema/erc.png)
 
-[実行] します。「メッセージ」に何も警告が表示されず、「終了」とだけ表示されればOKです。
+单击执行。 如果“消息”中没有警告显示并且仅显示“结束”，则可以。
 
 ![run_erc](./images/eeschema/run_erc.png)
 
-次に、シンボルと実際の基板の部品(フットプリント)との紐付けを行います。
-上記メニューから「回路図シンボルへPCBフットプリントを関連付ける」を選択し
+接下来，将符号连接到实际的电路板组件（封装）。
+从上面的菜单中，选择“将PCB尺寸与原理图符号相关联”
 
 ![run_erc](./images/eeschema/relate_to_footprint.png)
 
-「フットプリント ライブラリー テーブルを編集」を選択し、
+选择编辑封装库表，
 
 ![run_erc](./images/eeschema/footprint_lib.png)
 
-[ライブラリーを参照...] から `kbd/kbd.pretty` を選択し [OK] します。
+从[浏览库...]中选择`kbd / kbd.pretty`，然后单击[确定]。
 
 ![run_erc](./images/eeschema/select_kbd_pretty.png)
 
 
-これでキーボードに関するフットプリントが使えるようになりました。
+现在可以使用键轴的封装了。
 
 ![start_relation](./images/eeschema/start_relation.png)
 
-読み込んだ kbd からそれぞれ下記のように割り当てを行います。
-今回の例ではSW1がリセットスイッチになっていることに注意してください。
-事前にわかりやすいようにアノテーションを「RSW」などに変更しておくとわかりやすいかもしれません
-(アノテーションの変更はシンボルにカーソルを合わせて、ショートカット `e` でできます)。
+按以下方式从读取的kbd中进行分配。
+注意，在此示例中，SW1是复位开关。
+如果将注释更改为“ RSW”等，可能会更容易理解，从而可以更轻松地事先理解。
+（您可以通过将光标置于符号上并使用快捷方式“ e”来更改注释）。
 
 ![finish_relate](./images/eeschema/finish_relate.png)
 
-またフットプリントを確認したい場合は、右側の枠からフットプリントを選択して「選択したフットプリントを見る」から見れます。
+另外，如果要检查封装，可以从右框架中选择它，然后单击“查看选定的封装”。
 
 ![show_footprint](./images/eeschema/show_footprint.png)
 ![show_selected_footprint](./images/eeschema/show_selected_footprint.png)
 
 
-最後に上記メニューから「ネットリストを生成」を選択して、
+最后，从上面的菜单中选择“ 生成网表”，
 ![output_netlist](./images/eeschema/output_netlist.png)
 
-[ネットリストを生成] からネットリストと呼ばれる回路情報をファイルとして出力します。
+从[生成网表]中生成称为网表的电路信息作为文件输出。
 ![output_netlist_to_file](./images/eeschema/output_netlist_to_file.png)
 
-回路設計は以上で完了です。
+电路设计现已完成。
 
 
 ### PCBの作成
