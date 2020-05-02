@@ -148,7 +148,7 @@ $ git clone https://github.com/foostan/kbd
 ![run_erc](./images/eeschema/run_erc.png)
 
 接下来，将符号连接到实际的电路板组件（封装）。
-从上面的菜单中，选择“将PCB尺寸与原理图符号相关联”
+从上面的菜单中，选择“分布PCB封装到原理符号图”
 
 ![run_erc](./images/eeschema/relate_to_footprint.png)
 
