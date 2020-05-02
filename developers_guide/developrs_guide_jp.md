@@ -188,37 +188,38 @@ $ git clone https://github.com/foostan/kbd
 
 
 ### 制作PCB
+图示-->单位-->mm
 
-返回到全局菜单，然后选择“ Board Layout Editor”。
+返回到全局菜单，然后选择" Board Layout Editor"。
 ![open_pcbnew](./images/pcbnew/open_pcbnew.png)
 
 这是PCB布局编辑器（Pcbnew）的工作屏幕。
 ![pcbnew](./images/pcbnew/pcbnew.png)
 
 首先，加载此处先前创建的电路数据。
-从上面的菜单中选择“加载网表”
+从上面的菜单中选择"加载网表"
 ![open_netlist](./images/pcbnew/open_netlist.png)
 
 选择加载当前网表。
 ![load_netlist](./images/pcbnew/load_netlist.png)
 
-如下图所示加载每个封装都可以。
+如下图所示加载的每个封装。
 ![loaded_netlist](./images/pcbnew/loaded_netlist.png)
 
 首先，我将制作名片框架。
 顺便说一下，名片的大小是91mm x 55mm。
 
-从上面的菜单中将要工作的图层更改为“ Edge.Cuts”，
+从上面的菜单中将要工作的图层更改为"Edge.Cuts"，
 ![select_edge_cut](./images/pcbnew/select_edge_cut.png)
 
-从右侧菜单中选择“添加图形线”。
+从右侧菜单中选择"添加图形线条"。
 ![add_line](./images/pcbnew/add_line.png)
 
 首先，制作一个粗糙的矩形。
 ![draw_lines](./images/pcbnew/draw_lines.png)
 
 
-接下来，将光标移至该行，并使用快捷方式“e”显示“接线段属性”。
+接下来，将光标移至该行，并使用快捷方式"e"显示"接线段属性"。
 直线的位置由起点X，起点Y，终点X和终点Y确定。``
 ![edit_xy](./images/pcbnew/edit_xy.png)
 
@@ -258,22 +259,22 @@ $ git clone https://github.com/foostan/kbd
 我认为0.1mm就足够了。
 ![select_0.1mm](./images/pcbnew/select_0.1mm.png)
 
-选择添加【下一条圆角】以圆角化。
+选择 "添加圆弧" 以圆角化。
 
 ![add_enko](./images/pcbnew/add_enko.png)
 
 ![set_enko](./images/pcbnew/set_enko.png)
 
-接下来，布置按键开关的占地面积。
+接下来，布置键轴的占地面积。
 对于Cherry MX系列，按键开关的间距通常为19.05 mm。
 
-首先，要设置自定义网格设置，请选择“视图>网格设置”，并将“大小X”和“大小Y”设置为19.05。
+首先，要设置自定义网格设置，请选择"视图>网格设置"，并将"大小X"和"大小Y"设置为19.05。
 
 ![grid_setting](./images/pcbnew/grid_setting.png)
 
-此后，如果将以上菜单中的网格设置设置为“自定义用户网格”，将显示19.05毫米单位的网格。
-之后，沿着该网格排列按键开关。
-您可以通过将光标移动到足迹并使用快捷键“ m”来移动足迹。
+此后，如果将以上菜单中的网格设置设置为"自定义用户网格"，将显示19.05毫米单位的网格。
+之后，沿着该网格排列键轴封装。
+您可以通过将光标移动到封装并使用快捷键"m"来移动足迹。
 
 ![set_key_sw](./images/pcbnew/set_key_sw.png)
 
@@ -287,28 +288,28 @@ $ git clone https://github.com/foostan/kbd
 接下来，我们将进行连线。 飞线（连接孔和垫的长白线）表示要布线的点。
 对于干净的接线，我认为如果您参考此最基本的方法来计划如何接线，那将是可行的。
 
-对于布线，首先从上面的菜单切换到“ F.Cu”层。
+对于布线，首先从上面的菜单切换到" F.Cu"层。
 ![select_fcu](./images/pcbnew/select_fcu.png)
 
-从右侧菜单中的“接线”执行。
+从右侧菜单中的"接线"执行。
 
 ![line](./images/pcbnew/line.png)
 
 
 由于GND是单独处理的，因此需要其他布线。
-将光标移至接线并按快捷键“ d”或
-将光标移至足迹并执行快捷键“ r”等，
+将光标移至接线并按快捷键" d"或
+将光标移至足迹并执行快捷键" r"等，
 尝试使接线尽可能简单。
 
 这是接线示例。
 
 ![finished_line](./images/pcbnew/finished_line.png)
 
-接下来，处理GND。 从右侧菜单中选择“添加填充区域”并将其放置，使其覆盖轮廓。
+接下来，处理GND。 从右侧菜单中选择"添加填充区域"并将其放置，使其覆盖轮廓。
 
 ![beta](./images/pcbnew/beta.png)
 
-设置如下。 将层设置为“ F.Cu”，将网络设置为“ GND”，并保留默认设置。
+设置如下。 将层设置为" F.Cu"，将网络设置为" GND"，并保留默认设置。
 
 ![set_zone](./images/pcbnew/set_zone.png)
 
@@ -322,7 +323,7 @@ $ git clone https://github.com/foostan/kbd
 
 ![finished_line_and_zone](./images/pcbnew/finished_line_and_zone.png)
 
-接下来，在丝绸上添加名称，以便将其用作“名片”。
+接下来，在丝绸上添加名称，以便将其用作"名片"。
 使用您喜欢的绘图软件或绘画软件创建名片图像。
 
 这次我使用PhotoShop。
